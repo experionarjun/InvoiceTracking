@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+ 	  <title>Login</title>
+	  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	  <link href="https://fonts.googleapis.com/css?family=Inconsolata|Roboto:400,500,700" rel="stylesheet">
+	  <link rel="stylesheet" type="text/css" href="style/style.css">
+	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	 
+	  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	  <script type="text/javascript" src="script/2.5.3-crypto-md5.js"></script>
+	   <script type="text/javascript" src="script/login.js"></script>
+</head>
+<body>
+
+	<div class="Header clear"></div>
+	<div class="main_body BG clear">
+		<div class="login_body clear">
+			  
+		   		<div class="heading margin">
+		   		<h2>Login</h2>
+		   		</div>
+		   		<div class="content">
+		   			<div id="result"></div>
+			   		<form name="login" method="post">
+				   		<div class="input-group margin">
+						    <span class="input-group-addon BG"><i class="glyphicon glyphicon-user"></i></span>
+						    <input id="Uname" type="text" class="form-control" name="Uname" placeholder="UserID">
+						</div>
+						<div class="input-group ">
+						    <span class="input-group-addon BG"><i class="glyphicon glyphicon-lock"></i></span>
+						    <input id="password" type="password" class="form-control" name="password" placeholder="Password">
+				  		</div>
+				  		 <div class="checkbox right">
+			   			 <label><input type="checkbox"> Remember me</label>
+			  			</div>
+			  			<button type="button" onclick="validation()" class="btn btn-primary clear mid">SUBMIT</button>
+			   		</form>
+			   	</div>
+		</div>
+
+	</div>
+	<div class="footer clear"> &copy; Arjun Sreedhar </div>
+</body>
+</html>

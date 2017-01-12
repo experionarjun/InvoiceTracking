@@ -1,0 +1,152 @@
+body{
+	font-family: 'Roboto', sans-serif !important;
+
+}
+
+.BG{
+		background-color: #EE3233;
+}
+
+.Header{
+	background-color: #EE3233;
+	width: 100%;
+	padding: 30px;
+	box-shadow: 5px 5px 15px rgba(0,0,0,0.4);
+	z-index: 1000;
+}
+
+.Header h2{
+	color: white;
+	margin: 0;
+	float: left;
+}
+
+.main_body{
+	width: 100%;
+	
+
+	
+
+}
+
+.login_body{
+	width: 32%;
+	border: 1px solid #F0ECEB;
+	padding: 10px 50px 50px 50px;
+	margin-left: 400px;
+	margin-top: 110px;
+	margin-bottom: 155px;
+	box-shadow: 5px 5px 15px rgba(0,0,0,0.4);
+	background-color: #FFFFFF;
+
+}
+
+
+.footer{
+
+	background-color: #6C7476;
+	color: white;
+	width: 100%;
+	padding:20px;
+}
+#result{
+	font-family: monospace;
+	font-size: 12px;
+	color: #EE3233;
+	margin-bottom: 8px;
+
+}
+
+
+.right{
+	float: right;
+}
+
+.clear{
+	float: left;
+	clear: both;
+}
+
+.margin{
+	margin-bottom: 20px;
+}
+
+.mid{
+	width: 100%;
+	
+}
+
+
+.logout{
+	color: white;
+	margin-top: 5px;
+	font-family: 'Inconsolata', monospace !important;
+	font-size: 16px;
+}
+
+.logout:hover{
+	color: white;
+}
+
+
+
+.sideBar{
+	width: 20%;
+	float: left;
+	height: 530px;
+	border-right: 1px solid #F0ECEB;
+	font-family: 'Inconsolata', monospace !important;
+	font-size: 16px;
+}
+
+.body_cont{
+	width: 75%;
+	float: left;
+	margin: 20px 0 0 20px;
+}
+
+
+.invoice_header{
+	border-bottom: 1px solid #F0ECEB;
+	padding: 5px 0 10px 0; 
+}
+.invoice_header h2{
+	margin: 0;
+
+}
+
+
+.invoice_cont{
+	padding: 10px 5px;
+}
+.invoice_cont input[type="text"],textarea{
+	border :none;
+	border-bottom: 1px solid #F0ECEB;
+	width: 300px;
+	height: 30px;
+}
+
+
+
+/*==============placeholder edit===============*/
+input::-webkit-input-placeholder {
+font-family: 'Inconsolata', monospace !important;
+font-size: 16px;
+
+}
+ 
+input:-moz-placeholder {
+ font-family: 'Inconsolata', monospace !important;
+ font-size: 16px;
+}
+ 
+input::-moz-placeholder {  
+  font-family: 'Inconsolata', monospace !important;
+  font-size: 16px;
+}
+ 
+input:-ms-input-placeholder {  
+ font-family: 'Inconsolata', monospace !important;
+ font-size: 16px;
+}
+/*================================================*/
