@@ -97,7 +97,34 @@ invoiceRouter.route("/login")
 
     });
 
+//-------------------Create Invoice---------------------
 
+invoiceRouter.route('/createInvoice')
+	.post(function(req,res){
+		var invoice = req.body.sendInvoice;
+        var InvoiceID = null;
+		console.log(invoice.list);
+       pool.query("INSERT INTO Invoice (invoice_no,date_of_issue,address,currency,dueDate,UID) VALUES ('"+invoice.invoice_no+"','"+invoice.doi+"','"+invoice.address+"','"+invoice.currency+"','"+invoice.dueDate+"',2) ",function(err,rows) {
+          if(err){
+            console.log(err);
+          }
+       });
+       pool.query("SELECT InvoiceID from Invoice where invoice_no='"+invoice.invoice_no+"'",function(err,rows){
+            if(!err){
+                var data = parse(rows);
+                InvoiceID = data[0].InvoiceID; console.log(InvoiceID);
+                 invoice.list.forEach(function(element) {
+                   pool.query("INSERT INTO InvoiceList (invoiceID,item,desc,qty,unitp) VALUES ("+InvoiceID+",'"+element.item+"','"+element.desc+"',"+element.qty+","+element.unitp+")",function(err,rows) {  
+                    if(err){
+                             console.log(err);
+                    }
+                   });
+            })
+             }
+       })
+       console.log(InvoiceID);
+		res.end();
+	})
 
 
 
