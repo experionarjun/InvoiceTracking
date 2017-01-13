@@ -44,7 +44,7 @@ body{
 
 .footer{
 
-	background-color: #6C7476;
+	background-color: #333333;
 	color: white;
 	width: 100%;
 	padding:20px;
@@ -62,6 +62,11 @@ body{
 	float: right;
 }
 
+.left{
+	float: left;
+	margin-left: 180px;
+}
+
 .clear{
 	float: left;
 	clear: both;
@@ -71,6 +76,9 @@ body{
 	margin-bottom: 20px;
 }
 
+.top{
+	margin-top: -43px;
+}
 .mid{
 	width: 100%;
 	
@@ -93,7 +101,7 @@ body{
 .sideBar{
 	width: 20%;
 	float: left;
-	height: 530px;
+	min-height: 525px;
 	border-right: 1px solid #F0ECEB;
 	font-family: 'Inconsolata', monospace !important;
 	font-size: 16px;
@@ -121,10 +129,150 @@ body{
 }
 .invoice_cont input[type="text"],textarea{
 	border :none;
-	border-bottom: 1px solid #F0ECEB;
-	width: 300px;
-	height: 30px;
+	border: 1px solid #F0ECEB;
+	width: 350px;
+	height: 40px;
+	padding-left: 5px;
+	margin: 2px 0 10px 0;
 }
+
+.invoice_cont textarea{
+
+	height: 100px;
+}
+
+#datepicker,#datepicker2{
+	width:130px;
+	height:35px;
+}
+
+
+.invoice_cont input[type="text"]:focus,textarea:focus{
+	border: 1px solid #F0ECEB;
+	outline: none;
+	background-color: #f9f7f7;
+
+	
+}
+
+.invoice_cont select{
+	border: 1px solid #F0ECEB;
+	background-color: white;
+	width: 130px;
+	height: 35px;
+	color: #8c8888;
+	font-family: 'Inconsolata', monospace !important;
+}
+
+.invoice_cont select:focus{ 
+	outline: none;
+}
+
+
+.invoice_cont option{
+	font-size: 16px;
+} 
+
+
+.invoice_cont table{
+		border-radius: 5px;
+		margin-top: 20px;
+		text-align: center;
+}
+
+
+.invoice_cont thead{
+	background-color: black;
+	color: white;
+	background-color: #333333;
+}
+
+.invoice_cont tbody{
+	border: none;
+}
+
+.invoice_cont th,td{
+	padding: 10px 20px 10px 20px;
+	text-align: left;
+	
+
+
+}
+
+.submit {
+	margin-top: 20px;
+	width: 20%;
+	float: right;
+	margin-right: 70px;
+	
+
+}
+
+.addRow,.reset{
+	float: left;
+}
+
+.reset{
+	height: 30px;
+	margin-left: 20px;
+}
+#no,#qty,#unitp,#total{
+	padding-right: 35px;
+}
+#item{
+	padding-right: 100px;
+}
+
+#desc{
+	padding-right: 300px;
+}
+
+.invoiceList input[type="text"]{
+	padding: 0;
+	border: none;
+	outline: none;
+	height: 30px;
+	width: 100px;
+	
+}
+
+.invoiceList input[type="text"]:focus{
+	padding: 0;
+	border: none;
+	outline: none;
+	background-color: transparent;
+
+}
+
+.mainTot{
+	clear: both;
+	float: right;
+	margin: 10px 80px 0 0;
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -1,33 +1,41 @@
 var express = require("express");
-var app = express();
 var mysql = require("mysql");
 var cors = require("cors");
 var validator = require('validator');
-app.use(cors());
-var pool = mysql.createPool({
-  host     : 'localhost',
-  user     : 'root',
-  password : 'l00p',
-  database : 'person'
-});
 var bodyParser = require('body-parser');
-app.use(bodyParser.urlencoded({ extended: true }));
+
+var app = express();
+var port = process.env.PORT || 8080;
+
+app.use(cors());
+
+var pool = mysql.createPool({
+    host: 'localhost',
+    user: 'root',
+    password: 'l00p',
+    database: 'person'
+});
+
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
 app.use(bodyParser.json());
-var port = process.env.PORT || 8000;
 var invoiceRouter = express.Router();
 
 //function to validate if username/pass is null or too long
-function valid(Uname , pass){
+function valid(Uname, pass) {
 
-	if(Uname.length === 0 || Uname.length >20 || pass.length === 0 || pass.length > 32){return false;}
-	return true;
+    if (Uname.length === 0 || Uname.length > 20 || pass.length === 0 || pass.length > 32) {
+        return false;
+    }
+    return true;
 }
 
-function parse(rows){
+function parse(rows) {
 
-		var data=JSON.stringify(rows);
-        data =JSON.parse(data);
-        return data;
+    var data = JSON.stringify(rows);
+    data = JSON.parse(data);
+    return data;
 }
 
 
@@ -35,76 +43,73 @@ function parse(rows){
 
 
 invoiceRouter.route("/login")
-.post(function(req,res) {
-	var Uname = req.body.userName;
-	var pass = req.body.password;
-	var result={"status":"","message":"","type":null};
+    .post(function(req, res) {
+        var Uname = req.body.userName;
+        var pass = req.body.password;
+        var result = {
+            "status": "",
+            "message": "",
+            "type": null
+        };
 
-	if(valid(Uname,pass)){
+        if (valid(Uname, pass)) {
 
-            pool.query("SELECT password,RoleID from user where UserID ='"+Uname+"'",function(err,rows)
-            
-            { 
-                if(!err)
-                {
-                    if(rows.length>0)
-                    {
-                        console.log(rows);
-                        
-                        
-                        var data = parse(rows);
-                        
-                        if(pass==data[0].password)
-                        {
-                            result.status=200;
-                            result.message="Success";
-                            pool.query("SELECT RoleType from Role where RoleID ='"+data[0].RoleID+"'",function(err,rows){
-                            	var data = parse(rows);
-                            	console.log(typeof data[0].RoleType);
-                            	result.type = data[0].RoleType;
-                            	result = JSON.stringify(result);
-                           		res.send(result);
-                            });
-                         }
-                        else {
-                        	console.log("wrong pass");
-                        	result.status=403;
-                            result.message="Invalid Password";
-                            res.send(result); 
+            pool.query("SELECT password,RoleID from user where UserID ='" + Uname + "'", function(err, rows)
 
-                        } 
-                     }
-                     else{
-                     	console.log("wrong Uname");
-                     	result.status = 403;
-                     	result.message = "Invalid UserID";
-                     	res.send(result); 
-                     }
-                 }
+                {                
+                    if (!err) {
+                        if (rows.length > 0) {
+                            console.log(rows);
 
-             });
 
-}
-else{
-	console.log("pass too long");
-}
+                            var data = parse(rows);
 
-});
+                            if (pass == data[0].password) {
+                                result.status = 200;
+                                result.message = "Success";
+                                pool.query("SELECT RoleType from Role where RoleID ='" + data[0].RoleID + "'", function(err, rows) {
+                                    var data = parse(rows);
+                                    console.log(typeof data[0].RoleType);
+                                    result.type = data[0].RoleType;
+                                    result = JSON.stringify(result);
+                                    res.send(result);
+                                });
+                            } else {
+                                console.log("wrong pass");
+                                result.status = 403;
+                                result.message = "Invalid Password";
+                                res.send(result);
+
+                            }
+                        } else {
+                            console.log("wrong Uname");
+                            result.status = 403;
+                            result.message = "Invalid UserID";
+                            res.send(result);
+                        }
+                    }
+
+                });
+
+        } else {
+            console.log("pass too long");
+        }
+
+    });
 
 
 
 
 
 invoiceRouter.route('/test')
-.get(function(req, res) {
+    .get(function(req, res) {
 
-	console.log(res);
+        console.log(res);
 
-	res.send("hi");
+        res.send("hi");
+    });
+
+app.use('/', invoiceRouter);
+app.listen(port, function() {
+    console.log("Running @ port " + port);
 });
-
-app.use('/',invoiceRouter);
-app.listen(port,function(){
-	console.log("Running @ port "+port);
-});
-
