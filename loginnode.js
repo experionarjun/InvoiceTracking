@@ -1,11 +1,21 @@
-var express = require("express");
-var mysql = require("mysql");
-var cors = require("cors");
-var validator = require('validator');
-var bodyParser = require('body-parser');
+const express = require("express");
+const mysql = require("mysql");
+const cors = require("cors");
+const validator = require('validator');
+const bodyParser = require('body-parser');
 
+var sesson = require('express-session');
 var app = express();
 var port = process.env.PORT || 8080;
+
+
+// var sess = {
+     
+//      secret : "l00p"
+//      saveUninitialized: true,
+
+//      cookie: { secure: true }
+// }
 
 app.use(cors());
 
@@ -21,6 +31,11 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 var invoiceRouter = express.Router();
+
+
+// app.use(session(sess));
+
+
 
 //function to validate if username/pass is null or too long
 function valid(Uname, pass) {
@@ -97,24 +112,39 @@ invoiceRouter.route("/login")
 
     });
 
-//-------------------Create Invoice---------------------
 
 invoiceRouter.route('/createInvoice')
+
+    //-------------------username generation--------------
+    .get(function(req,res){
+        pool.query("SELECT UID,UserID from user where RoleID = 2 ",function (err,rows) {
+           if(err){
+            console.log(err);
+           }
+            res.send(rows);
+    });
+
+    })
+
+
+//-------------------Create Invoice---------------------
 	.post(function(req,res){
 		var invoice = req.body.sendInvoice;
         var InvoiceID = null;
-		console.log(invoice.list);
-       pool.query("INSERT INTO Invoice (invoice_no,date_of_issue,address,currency,dueDate,UID) VALUES ('"+invoice.invoice_no+"','"+invoice.doi+"','"+invoice.address+"','"+invoice.currency+"','"+invoice.dueDate+"',2) ",function(err,rows) {
+		console.log(invoice.invoice_no);
+       pool.query("INSERT INTO Invoice (invoice_no,date_of_issue,address,currency,dueDate,UID) VALUES ('"+invoice.invoice_no+"','"+invoice.doi+"','"+invoice.address+"','"+invoice.currency+"','"+invoice.dueDate+"',"+invoice.cname+") ",function(err,rows) {
           if(err){
             console.log(err);
           }
        });
-       pool.query("SELECT InvoiceID from Invoice where invoice_no='"+invoice.invoice_no+"'",function(err,rows){
+       pool.query("SELECT InvoiceID from Invoice where invoice_no=?",[invoice.invoice_no],function(err,rows){
             if(!err){
                 var data = parse(rows);
                 InvoiceID = data[0].InvoiceID; console.log(InvoiceID);
-                 invoice.list.forEach(function(element) {
-                   pool.query("INSERT INTO InvoiceList (invoiceID,item,desc,qty,unitp) VALUES ("+InvoiceID+",'"+element.item+"','"+element.desc+"',"+element.qty+","+element.unitp+")",function(err,rows) {  
+    
+                invoice.list.forEach(function(element) {
+                var list={invoiceID : InvoiceID, item : element.item, desc : element.desc, qty : element.qty , unitp : element.unitp};
+                   pool.query("INSERT INTO InvoiceList SET ?",list,function(err,rows) {  
                     if(err){
                              console.log(err);
                     }
@@ -123,10 +153,42 @@ invoiceRouter.route('/createInvoice')
              }
        })
        console.log(InvoiceID);
-		res.end();
+	   res.end();
 	})
 
+invoiceRouter.route('/viewInvoiceAdmin')
+    .get(function(req,res){
+        var invoice = null;
+        var data;
+        var flag=0;
+         pool.query("SELECT * from Invoice where CreatedBy = 1",function(err,rows){
+            if(err){
+                throw err;
+            }
+            invoice = parse(rows);
 
+            invoice.forEach(function(element){
+                element.list = [];
+                pool.query("SELECT * FROM InvoiceList where invoiceID=?",[element.InvoiceID],function(err,rows){
+                    data = parse(rows); 
+                    element.list.push(data);
+                    console.log(element);
+              
+                  
+                    
+                });
+              
+
+            });
+          
+            res.send(invoice); 
+       
+
+         });
+
+        
+
+    })
 
 invoiceRouter.route('/test')
     .get(function(req, res) {

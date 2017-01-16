@@ -50,10 +50,28 @@ var checkNull = function() {
     }
 }
 
+var getCname = function(){
+    axios.get('http://127.0.0.1:8080/createInvoice')
+    .then(function(response){
+
+        console.log(response);
+        response.data.forEach(function(element){
+             var x = document.createElement("OPTION");
+             x.setAttribute("value", element.UID);
+             var t = document.createTextNode(element.UserID);
+             x.appendChild(t);
+             document.getElementById("cnameDroplist").appendChild(x);
+        })
+
+    }) 
+
+    
+}
+
 var getInvoice = function() {
     invoice.invoice_no = document.forms['create_invoice']['invoice_no'].value;
     invoice.doi = new Date(document.forms['create_invoice']['doi'].value);
-    invoice.cname = document.forms['create_invoice']['cname'].value;
+    invoice.cname = parseInt(document.forms['create_invoice']['cname'].value);
     invoice.address = document.forms['create_invoice']['address'].value;
     invoice.currency = document.forms['create_invoice']['currency'].value;
     invoice.dueDate = new Date(document.forms['create_invoice']['dueDate'].value);
@@ -70,8 +88,6 @@ var getInvoice = function() {
             price: document.getElementById('price' + j).value
         });
     }
-    invoice.subtotal = document.getElementById('subtotal').value;
-    invoice.total = document.getElementById('mainTot').value;
     console.log(invoice);
 
 }
@@ -81,7 +97,8 @@ function insertToDB(){
 	axios.post('http://127.0.0.1:8080/createInvoice', {
         sendInvoice: invoice
     }).then(function(response) {
-        console.log("inserted");
+        alert("Succesful");
+        window.location.reload();
     });
 }
 

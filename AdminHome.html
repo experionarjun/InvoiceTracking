@@ -50,7 +50,12 @@
 							</div>
 						</div>
 						<div class="clear">
-							<input type="text" placeholder="Customer Name" name="cname" class="left">
+							<!-- <input type="text" placeholder="Customer Name" name="cname" class="left"> -->
+							<select class="clear" name="cname" id="cnameDroplist">
+							<option value="" selected disabled>Customer Name</option>
+							<script type="text/javascript"> getCname();</script>
+								
+							</select>
 							<textarea placeholder="Address" name="address" class="left"></textarea>
 							<select class="clear top" name="currency">
 							<option value="" selected disabled>Currency</option>
