@@ -193,11 +193,18 @@ body{
 }
 
 .invoice_cont th,td{
+	padding-top: 10px !important;
+	padding-bottom: 10px !important;
+	padding-left: 20px !important;
 	padding: 10px 20px 10px 20px;
 	text-align: left;
 	
 
 
+}
+
+.invoice_cont tr{
+	border-bottom: 1px solid #F0ECEB;
 }
 
 .submit {
@@ -226,7 +233,7 @@ body{
 
 #cname{
 	padding-right: 300px;
-	padding-left: 100px;
+	padding-left: 100px !important;
 }
 
 #price{
@@ -266,7 +273,15 @@ body{
 
 }
 
+#item-row1{
+	padding: 10px 0 ;
 
+}
+
+#rightModal{
+	float: right;
+	margin-top: -95px;
+}
 
 
 

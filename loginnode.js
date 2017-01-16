@@ -131,8 +131,8 @@ invoiceRouter.route('/createInvoice')
 	.post(function(req,res){
 		var invoice = req.body.sendInvoice;
         var InvoiceID = null;
-		console.log(invoice.invoice_no);
-       pool.query("INSERT INTO Invoice (invoice_no,date_of_issue,address,currency,dueDate,UID) VALUES ('"+invoice.invoice_no+"','"+invoice.doi+"','"+invoice.address+"','"+invoice.currency+"','"+invoice.dueDate+"',"+invoice.cname+") ",function(err,rows) {
+		console.log(invoice);
+       pool.query("INSERT INTO Invoice (invoice_no,date_of_issue,address,currency,dueDate,total,UID) VALUES ('"+invoice.invoice_no+"','"+invoice.doi+"','"+invoice.address+"','"+invoice.currency+"','"+invoice.dueDate+"',"+invoice.total+","+invoice.cname+") ",function(err,rows) {
           if(err){
             console.log(err);
           }
@@ -159,36 +159,40 @@ invoiceRouter.route('/createInvoice')
 invoiceRouter.route('/viewInvoiceAdmin')
     .get(function(req,res){
         var invoice = null;
-        var data;
-        var flag=0;
-         pool.query("SELECT * from Invoice where CreatedBy = 1",function(err,rows){
-            if(err){
+         pool.query("SELECT a.InvoiceID,a.date_of_issue,a.currency,a.total,b.UserID FROM Invoice a, user b where CreatedBy = 1 and a.UID = b.UID",function(err,rows){
+            if (err) {
                 throw err;
             }
+            
             invoice = parse(rows);
 
-            invoice.forEach(function(element){
-                element.list = [];
-                pool.query("SELECT * FROM InvoiceList where invoiceID=?",[element.InvoiceID],function(err,rows){
-                    data = parse(rows); 
-                    element.list.push(data);
-                    console.log(element);
-              
+            // invoice.forEach(function(element){
+            //     element.list = [];
+            //     pool.query("SELECT * FROM InvoiceList where invoiceID=?",[element.InvoiceID],function(err,rows){
+            //         data = parse(rows); 
+            //         element.list.push(data);
+            //         console.log(element);
+
+                   res.send(invoice);   
                   
-                    
-                });
+             });
               
+     
+        });
 
-            });
+invoiceRouter.route('/viewInvoiceAdmin/:invID')
+    .get(function(req,res){
+
+        var invID = req.params.invID;
+        pool.query("SELECT a.InvoiceID, a.invoice_no, a.date_of_issue, a.address, a.currency, a.dueDate, a.total, b.item, b.desc, b.qty, b.unitp, c.UserID FROM Invoice a, InvoiceList b, user c WHERE a.InvoiceID ="+invID+" AND a.InvoiceID = b.invoiceID AND a.UID = c.UID",function (err,rows) {
+           if(!err){
+            res.send(rows);
+           }
+        })
+
+    })   
           
-            res.send(invoice); 
-       
 
-         });
-
-        
-
-    })
 
 invoiceRouter.route('/test')
     .get(function(req, res) {

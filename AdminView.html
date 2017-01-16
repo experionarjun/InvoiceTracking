@@ -43,16 +43,10 @@
 							        <th id="no">#</th>
 							        <th id="cname">Customer Name</th>
 							        <th id="price">Price</th>
-							        <th id="dueDate">Due Date</th>
+							        <th id="dueDate">Date Of Issue</th>
 							      </tr>
 							    </thead>
-							    	<tbody>
-									    <tr id='clickable-row' >
-									        <td id="no">1</td>
-									        <td id="cname">1234567</td>
-									        <td id="price">£158,000</td>
-									        <td id="dueDate"> dsasadas</td>
-									    </tr>
+							    	<tbody id="invoiceRows">
 									    <script type="text/javascript"> getInvoiceAdmin()</script>
 									</tbody>
 							
@@ -65,7 +59,7 @@
 				</div>
 
 
-				<button id="myBtn">Open Modal</button>
+				
 
 				<!-- The Modal -->
 				<div id="myModal" class="modal">
@@ -73,7 +67,45 @@
 				  <!-- Modal content -->
 				  <div class="modal-content">
 				    <span class="close">&times;</span>
-				    <p>Some text in the Modal..</p>
+				    <div id="modalInvoice">
+				    	<div  class="invoice_header">
+				    		<h2>Invoice</h2>
+				    	</div>
+				    	<div class="invoice_cont" >
+				    		<div>
+				    		<h4>Invoice No: <span id="invoice_no"></span></h4>
+				    		<h4>Billed To: <span id="billto"></span></h4>
+				    		<h4>Address: <span id="address"></span></h4>
+				    		</div> 
+				    		<div id="rightModal">
+				    		<h4>Date of Issue: <span id="dateofissue"></span></h4>
+				    		<h4>Due Date: <span id="duedate"> </span></h4>
+				    		<h4>Payment Term: 5</h4>
+				    		</div>
+				    		<center>
+				    		<table id="invoiceList" style="margin:40px 0;">
+							    <thead>
+							      <tr>
+							        <th id="no">#</th>
+							        <th id="item">Item</th>
+							        <th id="desc">Description</th>
+							        <th id="qty">Qty</th>
+							        <th id="unitp">Unit Price</th>
+							        <th id="total">Total</th>
+							      </tr>
+							    </thead>
+							    <tbody id='list'>
+							    	
+							    </tbody>
+							   </table>
+							</center>
+							<h4>Billed By: Experion Tech</h4>
+							<div align="right" style="margin:-30px 80px 0 0 ">
+							<h4>Total: <span id="mainTot"></span></h4>
+							</div>
+				    	</div>
+
+				    </div>
 				  </div>
 
 				</div>
@@ -82,16 +114,12 @@
 					// Get the modal
 					var modal = document.getElementById('myModal');
 
-					// Get the button that opens the modal
-					var btn = document.getElementById("clickable-row");
+					
 
 					// Get the <span> element that closes the modal
 					var span = document.getElementsByClassName("close")[0];
 
-					// When the user clicks the button, open the modal 
-					btn.click = function() {
-					    modal.style.display = "block";
-					}
+					
 
 					// When the user clicks on <span> (x), close the modal
 					span.onclick = function() {

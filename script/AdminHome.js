@@ -8,6 +8,7 @@ var invoice = {
     address: "",
     currency: "",
     dueDate: "",
+    total:"",
     list: "",
 }
 
@@ -75,7 +76,9 @@ var getInvoice = function() {
     invoice.address = document.forms['create_invoice']['address'].value;
     invoice.currency = document.forms['create_invoice']['currency'].value;
     invoice.dueDate = new Date(document.forms['create_invoice']['dueDate'].value);
+    
     var j = 0;
+    var total = 0;
     invoice.list = [];
 
     for (var i = 2; i < table.rows.length; i++) {
@@ -87,7 +90,9 @@ var getInvoice = function() {
             unitp: parseFloat(document.forms['create_invoice']['unitp' + j].value),
             price: document.getElementById('price' + j).value
         });
+       
     }
+    invoice.total = parseFloat(document.getElementById('mainTot').innerHTML);
     console.log(invoice);
 
 }
@@ -98,7 +103,7 @@ function insertToDB(){
         sendInvoice: invoice
     }).then(function(response) {
         alert("Succesful");
-        window.location.reload();
+        // window.location.reload();
     });
 }
 
