@@ -136,11 +136,14 @@ invoiceRouter.route('/createInvoice')
           if(err){
             console.log(err);
           }
-       });
+
+          console.log("query1")
+         
+    
        pool.query("SELECT InvoiceID from Invoice where invoice_no=?",[invoice.invoice_no],function(err,rows){
             if(!err){
                 var data = parse(rows);
-                InvoiceID = data[0].InvoiceID; console.log(InvoiceID);
+                InvoiceID = data[0].InvoiceID; console.log(rows);
     
                 invoice.list.forEach(function(element) {
                 var list={invoiceID : InvoiceID, item : element.item, desc : element.desc, qty : element.qty , unitp : element.unitp};
@@ -155,7 +158,7 @@ invoiceRouter.route('/createInvoice')
        console.log(InvoiceID);
 	   res.end();
 	})
-
+   })
 invoiceRouter.route('/viewInvoiceAdmin')
     .get(function(req,res){
         var invoice = null;

@@ -9,6 +9,7 @@
 	  <script src="https://unpkg.com/axios/dist/axios.min.js">	  </script>
 	  <link rel="stylesheet" href="code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 	  <script type="text/javascript" src="script/2.5.3-crypto-md5.js"></script>
+	   <script type="text/javascript" src="script/AdminView.js"></script> 
 </head>
 <body>
 		<div class="Header clear">
@@ -26,11 +27,99 @@
 
 			</div>
 
-			<div class="body_cont "> body</div>
+			<div class="body_cont "> 
+
+				<div class="invoice_header clear">
+					<h2>Invoice List</h2>
+				</div>
+				<div class="invoice_cont clear"> 
+
+					<table id="invoiceList">
+							    <thead>
+							      <tr>
+							        <th id="no">#</th>
+							        <th id="cname">Customer Name</th>
+							        <th id="price">Price</th>
+							        <th id="dueDate">Date Of Issue</th>
+							      </tr>
+							    </thead>
+							    	<tbody id="invoiceRows">
+									    <script type="text/javascript"> getInvoiceAdmin()</script>
+									</tbody>
+							
+							   </table>
+						</div>
+
+
+			</div>
+			<!-- The Modal -->
+				<div id="myModal" class="modal">
+
+				  <!-- Modal content -->
+				  <div class="modal-content">
+				    <span class="close">&times;</span>
+				    <div id="modalInvoice">
+				    	<div  class="invoice_header">
+				    		<h2>Invoice</h2>
+				    	</div>
+				    	<div class="invoice_cont" >
+				    		<div>
+				    		<h4>Invoice No: <span id="invoice_no"></span></h4>
+				    		<h4>Billed To: <span id="billto"></span></h4>
+				    		<h4>Address: <span id="address"></span></h4>
+				    		</div> 
+				    		<div id="rightModal">
+				    		<h4>Date of Issue: <span id="dateofissue"></span></h4>
+				    		<h4>Due Date: <span id="duedate"> </span></h4>
+				    		<h4>Payment Term: 5</h4>
+				    		</div>
+				    		<center>
+				    		<table id="invoiceList" style="margin:40px 0;">
+							    <thead>
+							      <tr>
+							        <th id="no">#</th>
+							        <th id="item">Item</th>
+							        <th id="desc">Description</th>
+							        <th id="qty">Qty</th>
+							        <th id="unitp">Unit Price</th>
+							        <th id="total">Total</th>
+							      </tr>
+							    </thead>
+							    <tbody id='list'>
+							    	
+							    </tbody>
+							   </table>
+							</center>
+							<h4>Billed By: Experion Tech</h4>
+							<div align="right" style="margin:-30px 80px 0 0 ">
+							<h4>Total: <span id="mainTot"></span></h4>
+							</div>
+				    	</div>
+
+				    </div>
+				  </div>
+
+				</div>
+
+
+
 		</div>
 
 		<div class="footer clear"> &copy; Arjun Sreedhar </div>
 	
+	<script type="text/javascript">
+		var modal = document.getElementById('myModal');
+		var span = document.getElementsByClassName("close")[0];
+		span.onclick = function() {
+		    modal.style.display = "none";
+		}					
+		window.onclick = function(event) {
+		    if (event.target == modal) {
+		        modal.style.display = "none";
+		    }
+		}
+		
+	</script>
 
 </body>
 </html>

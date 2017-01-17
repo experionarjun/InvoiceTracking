@@ -16,19 +16,19 @@ var checkNull = function() {
     if (invoice.invoice_no === "") {
         alert("Enter Invoice No.!");
         cflag = false;
-    } else if (invoice.doi === ""|| invoice.doi === undefined) {
+    } else if (invoice.doi === ""|| invoice.doi == "Invalid Date") {
         alert("Enter Date of Issue!");
         cflag = false;
     } else if (invoice.cname === "") {
         alert("Enter Customers Name");
         cflag = false;
     } else if (invoice.address === "") {
-        alert("Enter Adress");
+        alert("Enter Address");
         cflag = false;
     } else if (invoice.currency === "") {
         alert("Select currency");
         cflag = false;
-    } else if (invoice.dueDate === ""|| invoice.dueDate === undefined) {
+    } else if (invoice.dueDate === ""|| invoice.dueDate == "Invalid Date") {
         alert("Enter Due Date");
         cflag = false;
     } else if (list != "") {
@@ -52,7 +52,7 @@ var checkNull = function() {
 }
 
 var getCname = function(){
-    axios.get('http://127.0.0.1:8080/createInvoice')
+    axios.get('http://192.168.1.235:8080/createInvoice')
     .then(function(response){
 
         console.log(response);
@@ -99,7 +99,7 @@ var getInvoice = function() {
 
 function insertToDB(){
 
-	axios.post('http://127.0.0.1:8080/createInvoice', {
+	axios.post('http://192.168.1.235:8080/createInvoice', {
         sendInvoice: invoice
     }).then(function(response) {
         alert("Succesful");

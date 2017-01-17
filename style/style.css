@@ -192,10 +192,10 @@ body{
 	border: none;
 }
 
-.invoice_cont th,td{
-	padding-top: 10px !important;
-	padding-bottom: 10px !important;
-	padding-left: 20px !important;
+.invoice_cont th,.invoice_cont td{
+	padding-top: 10px ;
+	padding-bottom: 10px;
+	padding-left: 20px ;
 	padding: 10px 20px 10px 20px;
 	text-align: left;
 	

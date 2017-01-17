@@ -3,7 +3,7 @@ function login() {
     var pass = document.forms['login']['password'].value;
     pass = (Crypto.MD5(pass)).toString();
     var result = document.getElementById('result');
-    axios.post('http://127.0.0.1:8080/login', {
+    axios.post('http://192.168.1.235:8080/login', {
         userName: Uname,
         password: pass
     }).then(function(response) {
