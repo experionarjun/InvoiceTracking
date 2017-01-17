@@ -52,7 +52,7 @@ var checkNull = function() {
 }
 
 var getCname = function(){
-    axios.get('http://192.168.1.235:8080/createInvoice')
+    axios.get('http://192.168.1.235:8080/customers')
     .then(function(response){
 
         console.log(response);
@@ -99,7 +99,7 @@ var getInvoice = function() {
 
 function insertToDB(){
 
-	axios.post('http://192.168.1.235:8080/createInvoice', {
+	axios.post('http://192.168.1.235:8080/Invoice', {
         sendInvoice: invoice
     }).then(function(response) {
         alert("Succesful");

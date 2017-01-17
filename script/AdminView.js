@@ -1,6 +1,6 @@
 function getInvoiceAdmin() {
 
-	axios.get('http://192.168.1.235:8080/viewInvoiceAdmin')
+	axios.get('http://192.168.1.235:8080/Invoice')
     .then(function(response){
 
         console.log(response);
@@ -26,7 +26,7 @@ function getInvoiceAdmin() {
 
 function modalOpen(invID){
 
-	axios.get('http://192.168.1.235:8080/viewInvoiceAdmin/'+invID)
+	axios.get('http://192.168.1.235:8080/Invoice/'+invID)
 	.then(function(response){
 
 		document.getElementById('invoice_no').innerHTML = response.data[0].invoice_no;
