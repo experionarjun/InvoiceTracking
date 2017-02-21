@@ -6,31 +6,168 @@
 	  <link href="https://fonts.googleapis.com/css?family=Inconsolata|Roboto:400,700" rel="stylesheet">
 	  <link rel="stylesheet" type="text/css" href="style/style.css">
 	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	  <script src="https://unpkg.com/axios/dist/axios.min.js">	  </script>
-	  <link rel="stylesheet" href="code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 	  <script type="text/javascript" src="script/2.5.3-crypto-md5.js"></script>
+	  <!-- ==========MODAL SCRIPT================= -->
+	   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	   <!-- 	===============Verify Token============== -->
+	    <script type="text/javascript" src="script/verifyToken.js"></script>
+	   <script type="text/javascript" src="script/UserHome.js"></script> 
+
+	   <!-- ======================DATATABLE=============================== -->
+	   <script type="text/javascript" src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+	   <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
+
+	   <!-- ==================JSPDF=========================== -->
+	   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.debug.js"></script>
+
 </head>
-<body>
+<body  onload="verify(localStorage.Role)">
 		<div class="Header clear">
 
-		<h2>User Home</h2>
-			<a href="index.html" class="logout right">Logout</a>
+		<h2>Invoice Tracker</h2>
+			
 		</div>
 
-		<div class="main_body clear">
+		<div class="main_body ">
 			<div class="sideBar "> 
 				<ul class="nav nav-pills nav-stacked">
 				  <li class="active"><a href="#">View Invoice</a></li>
-				  <li><a href="index.html">Logout</a></li>
+				  <li><a onclick="logout()">Logout</a></li>
 				</ul>
 
 			</div>
 
-			<div class="body_cont "> body</div>
+			<div class="body_cont "> 
+
+				<div class="invoice_header clear">
+					<h2>Invoice List</h2>
+				</div>
+				<div class="invoice_cont clear"> 
+
+					<table id="invoiceList" class="display responsive nowrap">
+							    <thead>
+							      <tr>
+							        <th id="no">#</th>
+							        <th id="invoiceno">Invoice No.</th>
+							        <th id="doi">Date Of Issue</th>
+							        <th id="price">Price</th>
+							        <th id="status">Status</th>
+							         <th id="dueDate">Due Date</th>
+							       
+							      </tr>
+							    </thead>
+							    	<tbody id="invoiceRows">
+									    <script type="text/javascript"> getInvoiceUser()</script>
+									</tbody>
+							
+							   </table>
+						</div>
+
+
+			</div>
+			
+
+
+<!-- ============MODAL================= -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h2 class="modal-title">Invoice</h2>
+           <div class="pull-right">
+           <button type="button" id="cmd" class="btn btn-default " id="#editor"><span class="glyphicon glyphicon-file"></span> Save PDF</button>
+          <button type="button" onclick="printDiv()" class="btn btn-danger "><span class="glyphicon glyphicon-print"></span> Print</button>
+          </div>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+	        <div class="col-sm-6" >
+		        <h4>Invoice No: <span id="invoice_no"></span></h4>
+	    		<h4>Billed To: <span id="billto"></span></h4>
+	    		<!-- <div class="rows dates">
+	    			<div class="col-xs-6">
+	    				<h4>Address: </h4>
+	    			</div>
+	    			<div class="col-xs-6" id="modalAdd">
+	    				<span id="address"></span>
+	    			</div>
+
+	    		</div> -->
+	    		<div class="clear" id="modalAddress">
+	    			<h4>Address: </h4>
+	    		</div>
+	    		
+	    		<div id="address"></div>
+	    	
+	        </div>
+	        <div class="col-sm-6" >
+	        	 
+		        	<h4>Date of Issue: <span id="dateofissue"></span></h4>
+	    			<h4>Due Date: <span id="duedate"> </span></h4>
+		    		
+	    	
+	        </div>
+
+	      </div>
+	       
+	        <table class="table table-responsive">
+	        	<thead>
+	 				<tr style="color: white;background-color: #333333;">
+	 					<th>#</th>
+	      				<th>Item</th>
+	      				<th>Description</th>
+	      				<th>Qty</th>
+	      				<th>Unit Price</th>
+	      				<th>Total</th>
+	 				</tr>
+ 				</thead>
+ 				<tbody id='list'>
+							    	
+				
+				</tbody>
+			</table>
+			<div class="row">
+			    <div class="col-xs-6">
+			    	<h5>Billed By: Experion Tech</h5>
+			    </div>
+			    <div class="col-xs-6" >
+			    	 <div class="pull-right">
+			    	 	<h4>Sub-Total: <span id="subtotal"></span></h4>
+			    		<h3>Total: <span id="mainTot"></span></h3>
+			    	</div>	
+			    </div>
+			 </div>
+
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+
+
 		</div>
 
 		<div class="footer clear"> &copy; Arjun Sreedhar </div>
 	
+	<script type="text/javascript">
+		var modal = document.getElementById('myModal');
+		var span = document.getElementsByClassName("close")[0];
+		span.onclick = function() {
+		    modal.style.display = "none";
+		}					
+		window.onclick = function(event) {
+		    if (event.target == modal) {
+		        modal.style.display = "none";
+		    }
+		}
+		
+	</script>
 
 </body>
 </html>

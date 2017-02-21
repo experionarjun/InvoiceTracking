@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Reset Password</title>
+	 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	  <link href="https://fonts.googleapis.com/css?family=Inconsolata|Roboto:400,500,700" rel="stylesheet">
+	  <link rel="stylesheet" type="text/css" href="style/style.css">
+	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+	 	 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+	  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	  <script type="text/javascript" src="script/2.5.3-crypto-md5.js"></script>
+	   <script type="text/javascript" src="script/reset.js"></script>
+</head>
+<body class="BG">
+
+	<div class="main_body ">
+
+		<div class="login_body clear">
+			<div class="heading margin">
+		   		<h2>Reset Password</h2>
+		   	</div>
+		   	<div id="result"></div>
+			 <input id="newPass" type="password" class="form-control" name="password" placeholder="New Password" style="margin-bottom:20px;">
+			 <input id="confirmPass" type="password" class="form-control" name="password" placeholder="Confirm Password">
+			 <button type="button" onclick="validate()" class="btn btn-primary clear mid">SUBMIT</button>
+		</div>
+	
+	</div>
+<footer class="navbar-bottom footer clear"> &copy; Arjun Sreedhar </footer>
+</body>
+</html>

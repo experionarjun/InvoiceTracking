@@ -3,6 +3,7 @@ body{
 
 }
 
+
 .BG{
 		background-color: #EE3233;
 }
@@ -12,6 +13,7 @@ body{
 	width: 100%;
 	padding: 30px;
 	box-shadow: 5px 5px 15px rgba(0,0,0,0.4);
+	position: relative;
 	z-index: 1000;
 }
 
@@ -23,36 +25,54 @@ body{
 
 .main_body{
 	width: 100%;
-	
-
-	
-
+	height: calc(100vh - 30px);
 }
 
 .login_body{
 	width: 32%;
 	border: 1px solid #F0ECEB;
-	padding: 10px 50px 50px 50px;
-	margin-left: 400px;
-	margin-top: 110px;
-	margin-bottom: 155px;
+	padding: 10px 50px 30px 50px;
+	margin-left: 35%;
+	margin-top: 190px;
 	box-shadow: 5px 5px 15px rgba(0,0,0,0.4);
 	background-color: #FFFFFF;
 
 }
 
+#forgot{
+	margin-top: 10px;
+}
+#forgotEmail{
+	width: 100%;
+	border: 1px solid #F0ECEB;
+	height: 40px;
+	padding-left: 5px;
+	margin: 2px 0 10px 0;
+}
 
+#forgotEmail:focus{
+	border: 1px solid #F0ECEB;
+	outline: none;
+	background-color: #f9f7f7;
+
+}
 .footer{
 
 	background-color: #333333;
 	color: white;
 	width: 100%;
-	padding:20px;
+	padding:5px;
 }
 #result{
 	font-family: monospace;
 	font-size: 12px;
 	color: #EE3233;
+	margin-bottom: 8px;
+
+}
+#resetSuccess{
+	font-family: monospace;
+	font-size: 12px;
 	margin-bottom: 8px;
 
 }
@@ -81,27 +101,16 @@ body{
 }
 .mid{
 	width: 100%;
+	margin-top: 20px;
 	
 }
-
-
-.logout{
-	color: white;
-	margin-top: 5px;
-	font-family: 'Inconsolata', monospace !important;
-	font-size: 16px;
-}
-
-.logout:hover{
-	color: white;
-}
-
 
 
 .sideBar{
 	width: 20%;
 	float: left;
-	min-height: 525px;
+	margin-top: 2px;
+	min-height: 600px;
 	border-right: 1px solid #F0ECEB;
 	font-family: 'Inconsolata', monospace !important;
 	font-size: 16px;
@@ -126,12 +135,20 @@ body{
 
 
 .invoice_cont{
-	padding: 10px 5px;
+	padding: 15px 5px 10px 5px;
+	width: 100%;
 }
-.invoice_cont input[type="text"],textarea,#cnameDroplist{
+
+.invoice_cont p{
+	margin: 0;
+	font-family: 'Inconsolata', monospace !important;
+	color: #333;
+}
+.invoice_cont input[type="text"],textarea,#cnameDroplist, input[type="search"],input[type="number"]{
 	border :none;
+	background-color:#fcfcfc; 
 	border: 1px solid #F0ECEB;
-	width: 350px;
+	width: 400px;
 	height: 40px;
 	padding-left: 5px;
 	margin: 2px 0 10px 0;
@@ -140,15 +157,23 @@ body{
 .invoice_cont textarea{
 
 	height: 100px;
+	float: right;
+	margin-left: 180px;
+}
+
+#warning_section{
+	width: 98%;
+}
+.dates{
+	margin-left: -17px;
 }
 
 #datepicker,#datepicker2{
-	width:130px;
+	width:100%;
 	height:35px;
 }
 
-
-.invoice_cont input[type="text"]:focus,textarea:focus{
+.invoice_cont input[type="text"]:focus,textarea:focus, input[type="search"]:focus,input[type="number"]:focus{
 	border: 1px solid #F0ECEB;
 	outline: none;
 	background-color: #f9f7f7;
@@ -156,23 +181,24 @@ body{
 	
 }
 
-.invoice_cont select{
+
+.invoice_cont select,.status{
 	border: 1px solid #F0ECEB;
 	background-color: white;
 	width: 130px;
 	height: 35px;
 	color: #8c8888;
-	font-family: 'Inconsolata', monospace !important;
+	
 }
 
-.invoice_cont select:focus{ 
+.status{
+	width: 200px;
+	margin-bottom: 10px;
+}
+
+.invoice_cont select:focus , .status:focus{ 
 	outline: none;
 }
-
-
-.invoice_cont option{
-	font-size: 16px;
-} 
 
 
 .invoice_cont table{
@@ -183,7 +209,6 @@ body{
 
 
 .invoice_cont thead{
-	background-color: black;
 	color: white;
 	background-color: #333333;
 }
@@ -192,10 +217,10 @@ body{
 	border: none;
 }
 
-.invoice_cont th,td{
-	padding-top: 10px !important;
-	padding-bottom: 10px !important;
-	padding-left: 20px !important;
+.invoice_cont th,.invoice_cont td{
+	padding-top: 10px ;
+	padding-bottom: 10px;
+	padding-left: 20px ;
 	padding: 10px 20px 10px 20px;
 	text-align: left;
 	
@@ -207,11 +232,15 @@ body{
 	border-bottom: 1px solid #F0ECEB;
 }
 
+#invoiceList{
+	margin-left: 6px;
+}
+
 .submit {
 	margin-top: 20px;
-	width: 20%;
+	width: 50%;
 	float: right;
-	margin-right: 70px;
+	
 	
 
 }
@@ -224,20 +253,34 @@ body{
 	height: 30px;
 	margin-left: 20px;
 }
-#no,#qty,#unitp,#total{
+/*#no,#qty,#unitp,#total{
 	padding-right: 35px;
+}*/
+#rm-row{
+	padding-left: 0 !important;
+	padding-right: 0 !important;
+
 }
-#item{
+/*#item{
 	padding-right: 100px;
 }
-
+*/
 #cname{
-	padding-right: 300px;
+	padding-right: 100px;
 	padding-left: 100px !important;
+}
+
+#invoiceno {
+	padding-right:60px ;
+	padding-left : 80px;
 }
 
 #price{
 	padding-right: 60px;
+}
+#status{
+	padding-left: 40px;
+	padding-right: 40px;
 }
 
 #dueDate{
@@ -245,8 +288,22 @@ body{
 	padding-left: 40px;
 }
 
-#desc{
-	padding-right: 300px;
+#doi{
+	padding-left: 40px;
+	padding-right: 80px;
+}
+
+/*#desc{
+	padding-right: 200px;
+}
+*/
+.rm-row{
+	color :#EE3233;
+	text-decoration: none;
+}
+.rm-row:hover{
+	color: #333;
+
 }
 
 .invoiceList input[type="text"]{
@@ -266,6 +323,14 @@ body{
 
 }
 
+input[disabled] {
+	border: 1px solid #F0ECEB;
+	outline: none;
+	background-color: #f9f7f7;
+
+}
+
+
 .mainTot{
 	clear: both;
 	float: right;
@@ -273,30 +338,255 @@ body{
 
 }
 
-#item-row1{
-	padding: 10px 0 ;
+.item-row:hover{
+	cursor: pointer;
+}
 
+input[name="address"],input[name="zip"],input[name="country"]{
+	width: 98% !important;
+}
+input[name="city"]{
+	    width: 100% !important;
+	    margin-right: 9px !important;
+}
+input[name="state"]{
+	width: 100% !important;
+}
+.mobRes{
+	background-color: transparent !important; 
+}
+#editAddress:hover{
+	cursor: pointer;
+	color: #8c8888;
+}
+#saveAddress{
+	    margin-right: 10px;
+}
+#cancelAddress{
+	margin-right: 10px;
+}
+#editAddress{
+	margin-right: 10px;
+}
+#modalAddress{
+	height: 100px;
+	width: 85px;
+}
+#address{
+	    margin-top: 20px;
+}
+
+
+/*=======MEDIA QUERY==============*/
+
+
+
+@media only screen and (min-device-width: 200px) and (max-device-width: 414px) and (-webkit-min-device-pixel-ratio: 2) {
+
+.clear{
+	float: none;
+}
+.login_body {
+
+
+	float: left;
+	width: 100%;
+	border: none;
+	margin-left: 0px;
+	box-shadow: none;
+	background-color: #EE3233;
+    padding: 10px 40px 10px 30px;
+
+ 
+}
+
+#result{
+	color: #333;
+}
+
+
+
+.Header{
+	float: left;
+}
+
+.Header h2{
+	    margin-left: -20px;
+}
+
+.sideBar{
+	width: 100%;
+	float: left;
+	min-height: 0px;
+	border-right: none;
+	font-family: 'Inconsolata', monospace !important;
+	font-size: 16px;
+}
+
+.body_cont{
+	width: 97%;
+	float: left;
+	margin: 20px 10px ;
+}
+
+
+.invoice_header{
+	border-bottom: 1px solid #F0ECEB;
+	width: 100%;
+	padding: 5px 0 10px 0; 
+}
+.invoice_header h2{
+	margin: 0;
+
+}
+
+
+.invoice_cont{
+	padding: 10px 5px;
+}
+
+
+.invoice_cont input[type="text"],textarea,#cnameDroplist, input[type="search"]{
+	border :none;
+	border: 1px solid #F0ECEB;
+	width: 98%;
+	height: 40px;
+	padding-left: 5px;
+	margin: 2px 0 10px 0;
+}
+
+
+.invoice_cont textarea{
+
+	height: 100px;
+	float: none;
+	margin-left: 0;
+}
+
+#invoiceList{
+	margin-left: 0px;
+}
+
+.left{
+	margin-left: 0px;
+	float: none;
+}
+
+.invoice_cont select{
+	width: 98%;
+}
+
+.status{
+	width: 100%;
+
+}
+
+.dates{
+	margin-top: 8px;
+}
+#datepicker,#datepicker2{
+	width:100%;
+	height:35px;
+}
+
+#datepicker2{
+	margin-top: 0px;
+	margin-left: 0px;
+
+}
+
+
+.top{
+	margin-top: 0px;
+}
+
+#invoiceList td{
+	text-align: center;
+}
+
+#no,#qty,#unitp,#total{
+	padding-right: 6px;
+}
+#item{
+	padding-right: 6px;
+}
+
+#cname{
+	padding-right: 10px;
+	padding-left: 10px !important;
+}
+
+#invoiceno,#status {
+	padding-right:5px ;
+	padding-left : 5px;
+}
+
+#price{
+	padding-right: 10px;
+	text-align: left !important;
+}
+
+#dueDate{
+	padding-right: 5px;
+	padding-left: 5px;
+	display: none;
+}
+#status{
+	text-align: left !important;
+}
+#doi{
+	padding-left: 5px;
+	padding-right: 5px;
+	display: none;
+}
+
+#desc{
+	padding-right: 10px;
+}
+
+.invoice_cont th, .invoice_cont td {
+     padding: 10px 6px ; 
+    /* padding-bottom: 10px; */
+    /* padding-left: 20px; */
+    /* padding: 10px 20px 10px 20px; */
+    /* text-align: left; */
+}
+
+.mobRes{
+	width:30px !important;
+	height : 30px !important;
+	border: none !important;
+}
+
+.addRow{
+	clear: both;
+}
+
+.mainTot{
+	    margin: 10px 10px 0 0;
+}
+
+.submit{
+
+	margin: 15px 0;
+	float: left;
+	width: 97%;
 }
 
 #rightModal{
-	float: right;
-	margin-top: -95px;
+	float: none;
+	margin-top: 10px;
+}
+#modalAddress{
+	height: auto;
+}
+#address{
+	    margin-top: 0px;
 }
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+}
 
 
 
@@ -306,64 +596,29 @@ body{
 /*==============placeholder edit===============*/
 input::-webkit-input-placeholder {
 font-family: 'Inconsolata', monospace !important;
+color : #7c7c7c;
 font-size: 16px;
 
 }
  
 input:-moz-placeholder {
  font-family: 'Inconsolata', monospace !important;
+ color : #7c7c7c;
  font-size: 16px;
 }
  
 input::-moz-placeholder {  
   font-family: 'Inconsolata', monospace !important;
+  color : #7c7c7c;
   font-size: 16px;
 }
  
 input:-ms-input-placeholder {  
  font-family: 'Inconsolata', monospace !important;
+ color : #7c7c7c;
  font-size: 16px;
 }
 /*================================================*/
 
 
-/*================MODAL===========================*/
-/* The Modal (background) */
-.modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    padding-top: 100px; /* Location of the box */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-}
 
-/* Modal Content */
-.modal-content {
-    background-color: #fefefe;
-    margin: auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-}
-
-/* The Close Button */
-.close {
-    color: #aaaaaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-    color: #000;
-    text-decoration: none;
-    cursor: pointer;
-}
-/*==============================================*/

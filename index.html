@@ -2,19 +2,25 @@
 <html>
 <head>
  	  <title>Login</title>
+
 	  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 	  <link href="https://fonts.googleapis.com/css?family=Inconsolata|Roboto:400,500,700" rel="stylesheet">
 	  <link rel="stylesheet" type="text/css" href="style/style.css">
 	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	 
+	 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+	 	 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
 	  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 	  <script type="text/javascript" src="script/2.5.3-crypto-md5.js"></script>
 	   <script type="text/javascript" src="script/login.js"></script>
-</head>
-<body>
 
-	<div class="Header clear"></div>
-	<div class="main_body BG clear">
+
+</head>
+<body class="BG">
+
+	<div class="main_body ">
 		<div class="login_body clear">
 			  
 		   		<div class="heading margin">
@@ -22,24 +28,69 @@
 		   		</div>
 		   		<div class="content">
 		   			<div id="result"></div>
+		   			<div id="resetSuccess"></div>
 			   		<form name="login" method="post">
 				   		<div class="input-group margin">
 						    <span class="input-group-addon BG"><i class="glyphicon glyphicon-user"></i></span>
-						    <input id="Uname" type="text" class="form-control" name="Uname" placeholder="UserID">
+						    <input id="Uname" type="text" class="form-control" name="Uname" placeholder="User ID">
 						</div>
 						<div class="input-group ">
 						    <span class="input-group-addon BG"><i class="glyphicon glyphicon-lock"></i></span>
 						    <input id="password" type="password" class="form-control" name="password" placeholder="Password">
 				  		</div>
-				  		 <div class="checkbox right">
-			   			 <label><input type="checkbox"> Remember me</label>
-			  			</div>
 			  			<button type="button" onclick="validation()" class="btn btn-primary clear mid">SUBMIT</button>
 			   		</form>
+			   		<div class="pull-right" id="forgot">
+			   			<a onclick="logoutClick()"> Forgot password</a>
+			   		</div>
 			   	</div>
 		</div>
-
+		
 	</div>
-	<div class="footer clear"> &copy; Arjun Sreedhar </div>
+	<footer class="navbar-bottom footer clear"> &copy; Arjun Sreedhar </footer>
+
+	<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Forgot Password</h4>
+        </div>
+        <div class="modal-body">
+        	<div id="warning_section">
+        		<div class="alert alert-success  fade in" id="success">
+				  	
+				 	<span class="glyphicon glyphicon-ok-circle"></span> <strong>Success!</strong> An e-mail has been sent to your account 
+				</div>
+					<div class="alert alert-danger alert-dismissable fade in" id="err">
+					    <a href="#" class="close" onclick="$('.alert').hide()" aria-label="close">&times;</a>
+					    	<span class='glyphicon glyphicon-ban-circle'></span> <span id = "warning"> </span>
+				  	</div>
+				  	</div>
+
+				  	<script type="text/javascript">
+				  		$('#success').hide();
+				  		var warning = document.getElementById('warning');
+				  		$('#err').hide();
+				  	</script>
+				<div id="forgotCont">		  	
+		          <p style="color: #8c8888;">Enter your E-mail ID</p>
+		          <center>
+		          <input type="text" id="forgotEmail" placeholder = "E-mail" >
+		          </center>
+		        </div>  
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" onclick="forgot()" id="submitForgotPass">Submit</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+
 </body>
 </html>

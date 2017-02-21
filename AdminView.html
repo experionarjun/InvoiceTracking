@@ -9,23 +9,33 @@
 
 	 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	    		<!-- ==========MODAL SCRIPT================= -->
+	    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	     <!-- 	===============Verify Token============== -->
+	    <script type="text/javascript" src="script/verifyToken.js"></script>
 	    <script type="text/javascript" src="script/AdminView.js"></script> 
+
+	     <!-- ======================DATATABLE=============================== -->
+	   <script type="text/javascript" src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+	   <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
+	    <!-- ==================JSPDF=========================== -->
+	   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.debug.js"></script>
 
 </head>
 
-<body>
+<body  onload="verify(localStorage.Role)">
 		<div class="Header clear">
 
-		<h2>Admin View</h2>
-			<a href="index.html" class="logout right">Logout</a>
+		<h2>Invoice Tracker</h2>
+			
 		</div>
 
-		<div class="main_body clear">
+		<div class="main_body ">
 			<div class="sideBar "> 
 				<ul class="nav nav-pills nav-stacked">
 				  <li><a href="AdminHome.html">Create Invoice</a></li>
 				  <li class="active"><a href="AdminView.html">View Invoice</a></li>
-				  <li><a href="index.html">Logout</a></li>
+				  <li><a onclick="logout()">Logout</a></li>
 				</ul>
 
 			</div>
@@ -37,12 +47,13 @@
 				</div>
 				<div class="invoice_cont clear"> 
 
-					<table id="invoiceList">
+					<table id="invoiceList" class="display responsive nowrap" >
 							    <thead>
 							      <tr>
 							        <th id="no">#</th>
 							        <th id="cname">Customer Name</th>
 							        <th id="price">Price</th>
+							        <th id="status">Status</th>
 							        <th id="dueDate">Date Of Issue</th>
 							      </tr>
 							    </thead>
@@ -61,84 +72,108 @@
 
 				
 
-				<!-- The Modal -->
-				<div id="myModal" class="modal">
+	<!-- ===========MODAL=============== -->
 
-				  <!-- Modal content -->
-				  <div class="modal-content">
-				    <span class="close">&times;</span>
-				    <div id="modalInvoice">
-				    	<div  class="invoice_header">
-				    		<h2>Invoice</h2>
-				    	</div>
-				    	<div class="invoice_cont" >
-				    		<div>
-				    		<h4>Invoice No: <span id="invoice_no"></span></h4>
-				    		<h4>Billed To: <span id="billto"></span></h4>
-				    		<h4>Address: <span id="address"></span></h4>
-				    		</div> 
-				    		<div id="rightModal">
-				    		<h4>Date of Issue: <span id="dateofissue"></span></h4>
-				    		<h4>Due Date: <span id="duedate"> </span></h4>
-				    		<h4>Payment Term: 5</h4>
-				    		</div>
-				    		<center>
-				    		<table id="invoiceList" style="margin:40px 0;">
-							    <thead>
-							      <tr>
-							        <th id="no">#</th>
-							        <th id="item">Item</th>
-							        <th id="desc">Description</th>
-							        <th id="qty">Qty</th>
-							        <th id="unitp">Unit Price</th>
-							        <th id="total">Total</th>
-							      </tr>
-							    </thead>
-							    <tbody id='list'>
+	<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          
+          <h2 class="modal-title " >Invoice</h2>
+          <div class="pull-right" >
+           <button type="button" id="cmd" class="btn btn-default " id="#editor"><span class="glyphicon glyphicon-file"></span> Save PDF</button>
+          <button type="button" onclick="printDiv()" class="btn btn-danger " id="print-btn"><span class="glyphicon glyphicon-print"></span> Print</button>
+          </div>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+	        <div class="col-sm-6" >
+		        <h4>Invoice No: <span id="invoice_no"></span></h4>
+	    		<h4>Billed To: <span id="billto"></span></h4>
+	    		<div class="clear" id="modalAddress">
+	    			<h4>Address: </h4>
+	    		</div>
+	    		
+	    		<div id="address"></div>
+	    	
+	      
+	        </div>
+	        <div class="col-sm-6" >
+	        	 
+		        	<h4>Date of Issue: <span id="dateofissue"></span></h4>
+	    			<h4>Due Date: <span id="duedate"> </span></h4>
+		    		<select name='status' class='status' id="invoiceStatus">
+		    		<option value='Pending'>Pending</option>
+		    		<option value='Paid'>Paid</option>
+		    		</select>
+                	<button type = "button" class = "btn btn-default" id="saveStatus"><span class="glyphicon glyphicon-floppy-save"></span></button>
+                	<script type="text/javascript">
+                		$('#saveStatus').hide();
+                	</script>
+	    	
+	        </div>
+
+	      </div>
+	       
+	        <table class="table table-responsive">
+	        	<thead>
+	 				<tr style="color: white;background-color: #333333;">
+	 					<th>#</th>
+	      				<th>Item</th>
+	      				<th>Description</th>
+	      				<th>Qty</th>
+	      				<th>Unit Price</th>
+	      				<th>Total</th>
+	 				</tr>
+ 				</thead>
+ 				<tbody id='list'>
 							    	
-							    </tbody>
-							   </table>
-							</center>
-							<h4>Billed By: Experion Tech</h4>
-							<div align="right" style="margin:-30px 80px 0 0 ">
-							<h4>Total: <span id="mainTot"></span></h4>
-							</div>
-				    	</div>
+				
+				</tbody>
+			</table>
+			<div class="row">
+			    <div class="col-xs-6">
+			    	<h5>Billed By: Experion Tech</h5>
+			    </div>
+			    <div class="col-xs-6" >
+			    	 <div class="pull-right">
+			    	 	<h4>Sub-Total: <span id="subtotal"></span></h4>
+			    		<h3>Total: <span id="mainTot"></span></h3>
+			    	</div>	
+			    </div>
+			 </div>
 
-				    </div>
-				  </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
 
-				</div>
 
-				<script>
-					// Get the modal
-					var modal = document.getElementById('myModal');
 
-					
-
-					// Get the <span> element that closes the modal
-					var span = document.getElementsByClassName("close")[0];
-
-					
-
-					// When the user clicks on <span> (x), close the modal
-					span.onclick = function() {
-					    modal.style.display = "none";
-					}
-
-					// When the user clicks anywhere outside of the modal, close it
-					window.onclick = function(event) {
-					    if (event.target == modal) {
-					        modal.style.display = "none";
-					    }
-					}
-					</script>
 
 
 			</div>
 		</div>
 
 		<div class="footer clear"> &copy; Arjun Sreedhar </div>
+	<script type="text/javascript">
+		var modal = document.getElementById('myModal');
+		var span = document.getElementsByClassName("close")[0];
+		span.onclick = function() {
+		    modal.style.display = "none";
+		}					
+		window.onclick = function(event) {
+		    if (event.target == modal) {
+		        modal.style.display = "none";
+		    }
+		}
+		
+	</script>
+
+
 	
 
 </body>

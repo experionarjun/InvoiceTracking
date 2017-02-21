@@ -1,72 +1,105 @@
 <!DOCTYPE html>
 <html>
-<head>
- 	  <title>Admin</title>
-	  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-	  <link href="https://fonts.googleapis.com/css?family=Inconsolata|Roboto:400,700" rel="stylesheet">
-	  <link rel="stylesheet" type="text/css" href="style/style.css">
-	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
-	 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-	    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-	    <script type="text/javascript" src="script/AdminHome.js"></script>
-
-	   <!--=============Date Picker================ -->
-	    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<head>
+		<title>Admin</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<link href="https://fonts.googleapis.com/css?family=Inconsolata|Roboto:400,700" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="style/style.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+		<script type="text/javascript" src="script/AdminHome.js"></script>
+		<!-- 	===============Verify Token============== -->
+		<script type="text/javascript" src="script/verifyToken.js"></script>
+		<!--=============Date Picker================ -->
+		<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 		<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-  		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-</head>
-
-<body>
+		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> 
+	</head>
+	<body onload="verify(localStorage.Role)">
 		<div class="Header clear">
-
-			<h2>Admin Home</h2>
-			<a href="index.html" class="logout right">Logout</a>
+			<h2>Invoice Tracker</h2>
 		</div>
-
 		<div class="main_body">
-			
 			<div class="sideBar "> 
 				<ul class="nav nav-pills nav-stacked">
 				  <li class="active"><a href="#">Create Invoice</a></li>
 				  <li><a href="AdminView.html">View Invoice</a></li>
-				  <li><a href="index.html">Logout</a></li>
+				  <li><a onclick="logout()" >Logout</a></li>
 				</ul>
 			</div>
-
-			<div class="body_cont "> 
+			<div class="body_cont"> 
 				<div class="invoice_header clear">
 					<h2>Create Invoice</h2>
 				</div>
 				<div class="invoice_cont clear">
-					<form name="create_invoice" method="post">
+					<div id="warning_section">
+						<div class="alert alert-success alert-dismissable fade in" id="success">
+							<a onclick="$('.alert').hide()" class="close"  aria-label="close">&times;</a>
+							<span class="glyphicon glyphicon-ok-circle"></span> <strong>Success!</strong> Invoice Generated! 
+						</div>
 
-
-						<div class="clear">
-							<input type="text" placeholder="Invoice No." name="invoice_no" style="float:left">
-							<div class="left">
-								<input type="text" id="datepicker" placeholder="Date of Issue" name="doi">
-								<span class="glyphicon glyphicon-calendar"></span>
+						<div class="alert alert-danger alert-dismissable fade in" id="err">
+						    <a href="#" class="close" onclick="$('.alert').hide()" aria-label="close">&times;</a>
+						    <span class='glyphicon glyphicon-ban-circle'></span> <span id = "warning"> </span>
+					  	</div>
+				  	</div>
+				  	<form name="create_invoice" method="post">
+				  		<div class="row">
+							<div class="col-sm-6">
+								<p>Invoice No.</p>
+								<input type="text" placeholder="Invoice No." name="invoice_no" disabled="disabled"><br>
+								<!-- <p>Customer Name</p> -->
+								<select name="cname" id="cnameDroplist">
+									<option value="" selected disabled>Customer Name</option>
+								</select><br>
+								<!-- <p>Currency</p> -->
+								<select name="currency" style="background-color:#fcfcfc">
+									<option value="" selected disabled>Currency</option>
+									<option value="USD">USD</option>
+									<option value="EUR">EUR</option>
+									<option value="INR">INR</option>
+								</select>
+							</div>
+							<div class="col-sm-6">
+								<div class="rows dates" >
+									<div class="col-sm-6">
+										<p>Date of Issue</p>
+										<input type="text" id="datepicker" title="Date of Issue" placeholder="Date of Issue" name="doi">
+									</div>
+									<div class="col-sm-6">
+										<p>Due Date</p>
+										<input type="text" id="datepicker2"  placeholder="Due Date" name="dueDate">
+									</div>
+								</div>
+								<p>Address </p>	
+								<input type="text" placeholder="Address" name="address"> <br>
+								<div class="rows dates" >
+									<div class="col-sm-6" >
+										
+										<input type="text" placeholder="City" name="city">
+									</div>
+									<div class="col-sm-6">
+											
+										<input type="text" placeholder="State" name="state">
+									</div>
+								</div>
+									
+								<input type="number" placeholder="Zip code" name="zip" title="Enter Valid Zip code">
+								
+								<input type="text" placeholder="Country" name="country">
+								<div class="pull-right">
+									<button type="button" class="btn btn-default" id="editAddress" title="Edit Address"><span class="glyphicon glyphicon-edit" ></span> Edit </button>
+									<button type="button" id="saveAddress" class="btn btn-default"><span class="glyphicon glyphicon-floppy-save"></span> Save </button>
+									<button type="button" id="cancelAddress" class="btn btn-danger"> <span class="glyphicon glyphicon-remove"></span> Cancel</button>
+								</div>
 							</div>
 						</div>
-						<div class="clear">
-							<!-- <input type="text" placeholder="Customer Name" name="cname" class="left"> -->
-							<select class="clear" name="cname" id="cnameDroplist">
-							<option value="" selected disabled>Customer Name</option>
-							<script type="text/javascript"> getCname();</script>
-								
-							</select>
-							<textarea placeholder="Address" name="address" class="left"></textarea>
-							<select class="clear top" name="currency">
-							<option value="" selected disabled>Currency</option>
-							<option value="USD">USD</option>
-							<option value="EUR">EUR</option>
-							<option value="INR">INR</option>
-							</select>
-						</div>
-
-						 <div class="clear margin invoiceList">          
-							  <table id="invoiceList">
+						<hr>
+						 <div class="invoiceList ">          
+							  <table class ="table" id="invoiceList" >
 							    <thead>
 							      <tr>
 							        <th id="no">#</th>
@@ -75,6 +108,7 @@
 							        <th id="qty">Qty</th>
 							        <th id="unitp">Unit Price</th>
 							        <th id="total">Total</th>
+							        <th id="rm-row"></th>
 							      </tr>
 							    </thead>
 							    <tbody id='list'>
@@ -82,27 +116,27 @@
 							    </tbody>
 							   </table>
 						</div>
-							  
-							  <button type="button" onclick=" return rowLimit()" class="btn btn-default btn-sm addRow">
-          						<span class="glyphicon glyphicon-plus"></span> Add Row
-        						</button>
+						<div class="rows">
+							<div class="col-sm-6">
+								<button type="button" onclick=" return rowLimit()" class="btn btn-default btn-sm addRow">
+	          					<span class="glyphicon glyphicon-plus"></span> Add Row
+	        					</button>
         						<button type="button" onclick="resetList()" class="btn btn-danger reset"> <span class="glyphicon glyphicon-remove"></span> Reset</button>
-
-        						<div class="clear" style="margin-top:20px">
-									<input type="text" id="datepicker2" placeholder="Due Date" name="dueDate">
-									<span class="glyphicon glyphicon-calendar"></span>
-								</div>
-        						<h4 class="mainTot">Sub-Total : <span id="subtotal">0.00</span></h4>
+							</div>
+							<div class="col-sm-6">
+								<h4 class="mainTot">Sub-Total : <span id="subtotal">0.00</span></h4>
         						<h3 class="mainTot">Total : <span id="mainTot">0.00</span></h3>
-							   <button type="button" onclick="submitValidation()" class="btn btn-primary clear submit " >SUBMIT</button>
-																			
-					</form>
+							   	<button type="button" onclick="submitValidation()" class="btn btn-primary submit clear " >SUBMIT</button>
+								
+							</div>
+							
+						</div>
+
+				  	</form>
 				</div>
 			</div>
 		</div>
-
 		<div class="footer clear"> &copy; Arjun Sreedhar </div>
-	
-
-</body>
+		
+	</body>
 </html>
